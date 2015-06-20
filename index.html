@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Escrip Maps-->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="themes/black.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+    <script src="js/jmaps.js"></script>
+    <!--Fin escrip maps-->
+    <link rel="stylesheet" href="css/themes/black.min.css">
+    <link href="css/jquery.alerts.css" rel="StyleSheet" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="http://cdn.rawgit.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.css">
+    <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script src="js/jquery.ui.draggable.js" type="text/javascript"></script>
+    <script src="js/jquery.alerts.mod.js" type="text/javascript"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/java.js"></script>
+    <script src="_assets/js/index.js"></script>
+    <script src="js/jquery.mobile-1.4.5.js"></script>
+    <script src="http://cdn.rawgit.com/jquery/jquery-ui/1.10.4/ui/jquery.ui.datepicker.js"></script>
+    <script id="mobile-datepicker" src="http://cdn.rawgit.com/arschmitz/jquery-mobile-datepicker-wrapper/v0.1.1/jquery.mobile.datepicker.js"></script>
+    <script src="js/highcharts.js"></script>
+    <script src="js/modules/exporting.js"></script>
+    <script src="js/highcharts-3d.js"></script>
+	<script src="https://query.yahooapis.com/v1/public/yql?q=select wind from weather.forecast where woeid in (select woeid from geo.places(1) where text='chicago, il')&format=json&callback=callbackFunction"></script>
+
+</head>
+<body >
+<!-- <ul class="bxslider">
+  <li><img src="/images/otoño.jpg" /></li>
+  <li><img src="/images/invierno.jpg" /></li>
+  <li><img src="/images/primavera.jpg" /></li>
+  <li><img src="/images/verano.jpg" /></li>
+</ul> -->
+<!--page1-->
+<div data-role="page" id="page1" class="jqm-demos ui-responsive-panel" data-title="IziTime" >
+    <!-- header -->
+    <div data-role="header">
+        <h1>IziTime</h1>
+		<h1><marquee>Clima Fácil!</marquee></h1>
+       <!--  <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a> -->
+        <a href="#add-form"  >Opciones</a>
+    </div>
+    <!-- header -->
+    <div data-role="header">
+      
+       <!--  <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a> -->
+    <!--     <a href="#add-form" data-position="left" >Opciones</a> -->
+    </div>
+    <!-- /header -->
+    <!-- panel izquierda -->
+    <div data-role="panel" data-display="pop" data-theme="b" id="nav-panel">
+        
+    </div> 
+    <!-- /panel izquierda -->
+    <!-- content -->
+    <div role="main" id="cont" class="ui-content jqm-content jqm-fullwidth" data-position="center" >
+	<script>
+		var callbackFunction = function(data) {
+		var wind = data.query.results.channel.wind;
+		alert(wind.chill);
+	};
+	</script>
+		 <center>
+       <IMG SRC="css/images/despejado.png">
+       <label>19°</label>
+       <div onload="alert(wind.chill)">
+            <!-- <ul>
+                <li>Lunes 19°</li>
+                <li>Martes 19°</li>
+                <li>Miercoles 19°</li>
+                <li>Jueves 19°</li>
+                <li>Viernes 19°</li>
+                <li>Sabado 19°</li> 
+            </ul> -->
+        </div>
+		 </center>
+    </div>
+  
+    
+    <!-- /content -->
+    <!-- panel derecha -->
+	<div data-role="panel" data-position="left" data-display="reveal" data-theme="a" id="add-form">
+        <form class="userform">
+        	<div class="ui-grid-a" data-type="vertical">
+		    <div onclick="geoloc()" class="ui-block-a"><a href="#page2" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b " data-mini="true">Dónde Estoy</a></div>
+            <div class="ui-block-b" ><a  data-rel="close" href="#page3" class="ui-btn ui-shadow ui-corner-all ui-btn-b "data-mini="true">Ajustes</a></div>
+            <div onclick="cerrar()" class="ui-block-b"><a data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a "data-mini="true">Salir</a></div>
+            <div onclick="visitar_pagina()"class="ui-block-b"><a data-rel="close"  class="ui-btn ui-shadow ui-corner-all ui-btn-a "data-mini="true">Visitanos! </a></div>	 
+         	</div>
+        </form>
+	</div>
+    <!-- <button onclick="geoloc()" class="ui-btn">Mostrar ubicación</button> -->
+     <!--<p>Ubicación Actual</p><p id="direccion"></p>-->    
+    </div>
+    <!-- /panel derecha -->
+</div>
+<!-- /page 1 -->
+
+<!--page 2-->
+<div data-role="page" id="page2" class="jqm-demos ui-responsive-panel" id="panel-responsive-page1" data-title="IziTime Map">
+        <div data-role="header"> 
+		  <h1>Dónde Estoy??</h1>
+            <h1><marquee>IziTime Map!</marquee></h1>
+            <a href="#page1" data-icon="forward">Volver</a>   
+        </div>
+<div role="main" class="ui-content jqm-content jqm-fullwidth">
+    <button onclick="geoloc()">Mostrar Mapa!</button>
+    <div id="mapdiv"></div>
+    <label>Mi Ubicación</label>
+    <p id="direccion"></p>
+</div>
+</div>
+<!-- fin page 2 -->
+
+<!--page 3-->
+<div data-role="page" id="page3" class="jqm-demos ui-responsive-panel" data-title="Ajustes IziTime" >
+    <!-- header -->
+    <div data-role="header">
+        <h1>Ajustes</h1>
+		<h1><marquee>IziTime Config!</marquee></h1>
+        <a href="#page1" data-icon="forward">Volver</a>
+    </div>
+
+	
+    <div role="main" class="ui-content jqm-content jqm-fullwidth">
+        <div data-role="navbar">
+     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+        <legend>Selecciona Unidad de Medida: </legend>
+		<br></br>
+		<input  type="radio" name="radio-choice-v-2" id="radio-choice-v-2a" value="on" checked="checked">
+        <label onclick="celsius()" for="radio-choice-v-2a">Celsius</label>
+        <input type="radio" name="radio-choice-v-2" id="radio-choice-v-2b" value="off">
+        <label onclick="farenheit()" for="radio-choice-v-2b">Farenhit</label
+		<br></br>
+		<br></br>
+		<br></br>
+		<div class="ui-block-b"><a href="#page1" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Aceptar</a></div>
+		<br></br>
+		<br></br>
+    </fieldset>
+		</div>
+		</div>
+ </div>
+</body>
+</html>
